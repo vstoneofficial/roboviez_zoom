@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Zoom Robot</title>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.7.8/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.7.8/css/react-select.css" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+	<link href="./views/css/zoomview.css" rel="stylesheet">
+</head>
+
+<body>
+    <input type="text" name="display_name" id="display_name" maxLength="100" placeholder="Name" required>
+    <button type="button" name="button" value="connect" class="btn btn-default" onclick="connect()">接続</button>
+
+    <script src="./views/js/tool.js"></script>
+    <script>
+        (function(){
+            testTool = window.testTool;
+            document.getElementById('display_name').value = testTool.getCookie("display_name");
+        })();
+
+        function connect() {
+            var display_name = document.getElementById('display_name').value;
+            if(!display_name){
+                alert("Enter Name");
+                return;
+            }
+            testTool.setCookie("display_name", display_name);
+
+            var params = new Object();
+            params.type = "connect";
+            params.display_name = display_name;
+            postForm(JSON.stringify(params));
+        }
+
+        function postForm(value) {
+            var form = document.createElement('form');
+            document.body.appendChild(form);
+            var input = document.createElement( 'input' );
+            input.setAttribute( 'type' , 'hidden' );
+            input.setAttribute( 'name' , 'json' );
+            input.setAttribute( 'value' , value );
+            form.appendChild(input);
+            form.setAttribute( 'action' , './index.html' );
+            form.setAttribute( 'method' , 'post' );
+            form.submit();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Zoom Robot</title>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.7.8/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.7.8/css/react-select.css" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+	<link href="./views/css/zoomview.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="tool">
+        <button type="submit" class="btn btn-primary" id="show-ctrl-btn" title="control button">表示</button>
+        <div id="controller" style="display:none">
+            <div>
+                <label>サーボ：</label>
+                <button type="submit" class="btn btn-primary" id="servo_on_btn" title="servo on">ON</button>
+                <button type="submit" class="btn btn-primary" id="servo_off_btn" title="servo off">OFF</button>
+            </div>
+            <div>
+                <label>カメラ：</label>
+                <button type="submit" class="btn btn-primary" id="cam_up_btn" title="cam up">上</button>
+                <button type="submit" class="btn btn-primary" id="cam_left_btn" title="cam left">左</button>
+                <button type="submit" class="btn btn-primary" id="cam_right_btn" title="cam right">右</button>
+                <button type="submit" class="btn btn-primary" id="cam_down_btn" title="cam down">下</button>
+            </div>
+            <div>
+                <label>モーション：</label>
+                <button type="submit" class="btn btn-primary" id="shak_btn" title="shak">握手</button>
+                <button type="submit" class="btn btn-primary" id="point_btn" title="point">指差す</button>
+                <button type="submit" class="btn btn-primary" id="wave_btn" title="point">手を振る</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://source.zoom.us/1.7.8/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/1.7.8/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/1.7.8/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/1.7.8/lib/vendor/redux-thunk.min.js"></script>
+    <script src="https://source.zoom.us/1.7.8/lib/vendor/jquery.min.js"></script>
+    <script src="https://source.zoom.us/1.7.8/lib/vendor/lodash.min.js"></script>
+
+    <script src="https://source.zoom.us/zoom-meeting-1.7.8.min.js"></script>
+    <script type="text/javascript">
+        var hostname = "<%-hostname %>";
+        var apikey = "<%-apikey %>";
+        var meetingNum = "<%-meetingNum %>"
+        var password = "<%-password %>"
+        var display_name = "<%-display_name %>"
+        var role = "<%-role %>"
+        var signature = "<%-signature %>";
+    </script>
+    <script src="./views/js/tool.js"></script>
+    <script type="text/javascript" src="./views/js/index.js"></script>
+</body>
+
+</html>
