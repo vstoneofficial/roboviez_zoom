@@ -1,9 +1,7 @@
 var request = require('request');
 var auth = require('./auth');
 
-const USER_ID = "SDv9bXN3QK-ABYZpgfh3ig";
-const BASE_URL = "https://api.zoom.us/v2/users/" + USER_ID + "/";
-
+const USERS_URL = "https://api.zoom.us/v2/users/"
 const MEETINGS = "meetings";
 
 // PW使用文字の定義
@@ -19,19 +17,21 @@ module.exports = {
  * ミーティング生成
  */
 function createMeetings(callback) {
-    var meetingsURL = BASE_URL + MEETINGS;
-
     var header = {
         authorization: 'Bearer ' + auth.getJWT(),
     };
 
-    var meetingsInfo = {
-        topic: "Zoom Robot Demo",
-        type: 1,
-        password: genPassword(),
-    };
-
-    post(meetingsURL, header, meetingsInfo, callback);
+    get(USERS_URL, header, function(userid){
+        var meetingsURL = USERS_URL + "/" + userid + "/" + MEETINGS;
+    
+        var meetingsInfo = {
+            topic: "Zoom Robot Demo",
+            type: 1,
+            password: genPassword(),
+        };
+    
+        post(meetingsURL, header, meetingsInfo, callback);
+    });
 }
 
 /**
@@ -55,6 +55,29 @@ function post(url, header, data, callback) {
         callback(body.id, body.password);
     });
     console.log("posted");
+}
+
+/**
+ * getする
+ * @param {*} url 
+ * @param {*} header 
+ * @param {*} callback 
+ */
+function get(url, header, callback) {
+    var options = {
+        method: 'GET',
+        url: url,
+        headers: header,
+    };
+
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+    
+        console.log(body);
+        var userinfo = JSON.parse(body);
+        callback(userinfo.users[0].id);
+    });
+    console.log("get done");
 }
 
 /**
